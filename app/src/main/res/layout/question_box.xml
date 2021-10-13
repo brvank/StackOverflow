@@ -2,17 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
+    android:padding="16dp"
+    android:background="@color/white"
+    android:layout_marginBottom="1dp"
     android:id="@+id/ll_question"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:layout_weight="0.2"
+        android:layout_weight="0.18"
         android:id="@+id/iv_owner_profile"
+        tools:src="@tools:sample/avatars"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent"
         app:shapeAppearanceOverlay="@style/roundImage"/>
 
     <LinearLayout
@@ -30,6 +34,9 @@
 
             <TextView
                 android:id="@+id/tv_question"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="This is a demo question only for demo purpose only"
                 android:maxLines="2"
                 android:ellipsize="end"
                 android:layout_weight="0.7"
@@ -38,6 +45,9 @@
 
             <TextView
                 android:id="@+id/tv_created_date"
+                android:textStyle="bold"
+                android:textColor="@color/light_black"
+                tools:text="10:10 AM"
                 android:gravity="right"
                 android:layout_weight="0.3"
                 android:layout_width="0dp"
@@ -55,27 +65,29 @@
             <TextView
                 android:id="@+id/tv_tag1"
                 tools:text="demo"
+                android:textColor="@color/theme_blue_light"
                 android:background="@drawable/tag_border"
-                android:paddingHorizontal="5dp"
-                android:layout_margin="2dp"
+                android:padding="5dp"
+                android:layout_margin="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_tag2"
                 tools:text="demo"
+                android:textColor="@color/theme_blue_light"
                 android:background="@drawable/tag_border"
-                android:paddingHorizontal="5dp"
-                android:layout_margin="2dp"
+                android:padding="5dp"
+                android:layout_margin="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
                 android:id="@+id/tv_tag3"
-                tools:text="demo"
-                android:textColor="@color/teal_200"
-                android:paddingHorizontal="5dp"
-                android:layout_margin="2dp"
+                tools:text="+3"
+                android:textColor="@color/theme_blue_light"
+                android:padding="5dp"
+                android:layout_margin="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

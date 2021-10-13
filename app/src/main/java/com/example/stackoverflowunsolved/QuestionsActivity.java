@@ -18,12 +18,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.example.stackoverflowunsolved.Models.Questions;
 import com.example.stackoverflowunsolved.Models.QuestionsAdapter;
 import com.example.stackoverflowunsolved.Models.QuestionsViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -41,6 +43,9 @@ public class QuestionsActivity extends AppCompatActivity {
     private RecyclerView rvQuestions;
     private QuestionsAdapter questionsAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    //Floating action button
+    FloatingActionButton fbReloadQuestions;
 
     //swipe refresh layout
     SwipeRefreshLayout swipeRefreshLayout;
@@ -68,6 +73,15 @@ public class QuestionsActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         rvQuestions.setLayoutManager(layoutManager);
 
+        //floating action button
+        fbReloadQuestions = findViewById(R.id.fb_reload_questions);
+        fbReloadQuestions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadData();
+            }
+        });
+
         questions = new ArrayList<>();
         questionsAdapter = new QuestionsAdapter(questions,getApplicationContext());
         rvQuestions.setAdapter(questionsAdapter);
@@ -87,9 +101,6 @@ public class QuestionsActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //refreshing enabled
-                swipeRefreshLayout.setRefreshing(true);
-
                 loadData();
             }
         });
@@ -100,29 +111,27 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private void loadData() {
         if(!connected()){
-            Toast.makeText(QuestionsActivity.this, "No Internet Connection!", Toast.LENGTH_SHORT).show();
+
+            //making swipe refreshing off
+            swipeRefreshLayout.setRefreshing(false);
+
+            //showing snackbar for five seconds to the user to reconnect to the internet and load again
+            Snackbar.make(findViewById(R.id.parent_questions), "No Internet Connection! ", 5000)
+                    .setAction("Try Again!", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            loadData();
+                        }
+                    })
+                    .show();
             return ;
         }
+        //refreshing enabled
+        swipeRefreshLayout.setRefreshing(true);
         //enabling loading dialog
         loadingDialog.startLoadingDialog();
 
         questionsViewModel.refreshData();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.action_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menu_refresh:
-                loadData();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     private void refreshQuestions(ArrayList<Questions> tempList){

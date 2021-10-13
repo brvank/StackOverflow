@@ -3,7 +3,10 @@ package com.example.stackoverflowunsolved;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -14,6 +17,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class DetailsWebViewActivity extends AppCompatActivity {
 
@@ -58,6 +63,8 @@ public class DetailsWebViewActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_refresh:
+                if(connected()) Toast.makeText(DetailsWebViewActivity.this, "Reloading...", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(DetailsWebViewActivity.this, "Connect to Internet!", Toast.LENGTH_SHORT).show();
                 wvQuestion.loadUrl(wvQuestion.getUrl());
         }
         return super.onOptionsItemSelected(item);
@@ -86,5 +93,21 @@ public class DetailsWebViewActivity extends AppCompatActivity {
 
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    //function for checking internet connection
+    private boolean connected() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            connected = true;
+        }
+        else {
+            //not connected to the internet
+            connected = false;
+        }
+        return connected;
     }
 }
