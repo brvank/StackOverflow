@@ -121,8 +121,6 @@ public class QuestionsActivity extends AppCompatActivity {
                     .show();
             return ;
         }
-        //refreshing enabled
-        swipeRefreshLayout.setRefreshing(true);
         //enabling loading dialog
         loadingDialog.startLoadingDialog();
 
