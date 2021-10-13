@@ -64,6 +64,8 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             }else{
                 amORpm = "AM";
             }
+        }else{
+            amORpm = "AM";
         }
 
         String minute = "";
