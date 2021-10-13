@@ -36,7 +36,6 @@ public class QuestionsActivity extends AppCompatActivity {
     public static Context context;
 
     private QuestionsViewModel questionsViewModel;
-    private RequestQueue requestQueue;
 
     //recycler view stuff
     private ArrayList<Questions> questions;
@@ -49,9 +48,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
     //swipe refresh layout
     SwipeRefreshLayout swipeRefreshLayout;
-
-    //menu
-    MenuInflater menuInflater;
 
     //loading dialog
     LoadingDialog loadingDialog;
@@ -66,7 +62,6 @@ public class QuestionsActivity extends AppCompatActivity {
 
         //initialising the objects
         questionsViewModel = new ViewModelProvider(this).get(QuestionsViewModel.class);
-        requestQueue = VolleySingleton.getInstance(this).getRequestQueue();
 
         //recycler view
         rvQuestions = findViewById(R.id.rv_questions);
