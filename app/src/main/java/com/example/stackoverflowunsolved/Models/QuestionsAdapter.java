@@ -82,6 +82,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
                 //creating intent to move from questions activity to details activity
                 Intent intent = new Intent(context, DetailsWebViewActivity.class);
                 intent.putExtra("questionURL", questions.get(position).getQuestionURL());
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
         });
