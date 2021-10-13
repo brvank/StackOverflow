@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="roundImage">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="background">
+        <item name="android:foreground">#99FFFFFF</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:src">@drawable/stackoverflow</item>
+    </style>
+</resources>
